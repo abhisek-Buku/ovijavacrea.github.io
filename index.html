@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body{
+	height: 100vh;
+	background: #000115;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.cursor{
+	z-index: 999;
+	position: fixed;
+	background: #2696e8;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	pointer-events: none;
+	box-shadow: 0 0 30px #2696e8,
+				0 0 60px #2696e8,
+				0 0 100px #2696e8,;
+	animation: colors 3s infinite;
+	transform: translate(-50%,-50%);
+	display: none;			
+}
+@keyframes colors{
+	0%{
+		filter: hue-rotate(0deg);
+		}
+		100%{
+			filter: hue-rotate(360deg);
+		}
+	}
+.cursor:before{
+	content: '';
+	position: absolute;
+	background: #2696e8;
+	width: 60px;
+	height: 60px;
+	opacity: 0.2;
+	transform: translate(-30%, -30%);
+	border-radius: 50%;
+
+}
+</style>
+<body>
+	<div class="cursor"></div>
+	<script type="text/javascript">
+		const cursor = document.querySelector(".cursor");
+		var timeout;
+		document.addEventListener("mousemove", (e)=>{
+			let x = e.pageX;
+			let y = e.pageY;
+			cursor.style.top = y + "px";
+			cursor.style.left = x + "px";
+			cursor.style.display = "block";
+			function mouseStopped(){
+				cursor.style.display = "none";
+			}
+			clearTimeout(timeout);
+			timeout = setTimeout(mouseStopped,1000);
+		});
+		document.addEventListener("mouseout",()=>{
+			cursor.style.display = "none";
+		});
+	</script>
+</body>
+</html>
